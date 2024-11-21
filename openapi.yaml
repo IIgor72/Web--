@@ -1,0 +1,321 @@
+openapi: 3.0.0 
+info:
+  title: VK Messenger API 
+  version: 1.0.0 
+paths:
+  /messages:
+    get:
+      summary: Get list of messages й
+      description: Returns a list of messages. 
+      responses:
+        '200':
+          description: Successful response 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    - id: "1"
+                      userId: "user123"
+                      content: "Hello, world!"
+                      createdAt: "2024-11-21T10:00:00Z"
+                    - id: "2"
+                      userId: "user456"
+                      content: "How are you?"
+                      createdAt: "2024-11-21T10:05:00Z"
+    post:
+      summary: Send a new message
+      description: Sends a new message to a user. 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMessage' 
+            examples:
+              example1:
+                summary: Example request
+                value:
+                  userId: "user123"
+                  content: "Hello, world!"
+      responses:
+        '201':
+          description: Message sent 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    id: "1"
+                    userId: "user123"
+                    content: "Hello, world!"
+                    createdAt: "2024-11-21T10:00:00Z"
+  /messages/{messageId}:
+    get:
+      summary: Get a specific message 
+      description: Retrieves a specific message by ID. 
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '200':
+          description: Successful response 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    id: "1"
+                    userId: "user123"
+                    content: "Hello, world!"
+                    createdAt: "2024-11-21T10:00:00Z"
+    put:
+      summary: Update a specific message 
+      description: Updates an existing message. 
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMessage' 
+            examples:
+              example1:
+                summary: Example request
+                value:
+                  userId: "user123"
+                  content: "Updated message content"
+      responses:
+        '200':
+          description: Message updated 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    id: "1"
+                    userId: "user123"
+                    content: "Updated message content"
+                    createdAt: "2024-11-21T10:00:00Z"
+    delete:
+      summary: Delete a specific message 
+      description: Deletes a specific message by ID.
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '204':
+          description: Message deleted 
+
+  /posts:
+    get:
+      summary: Get list of news feed posts
+      description: Returns a list of news feed posts. 
+      responses:
+        '200':
+          description: Successful response 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    - id: "1"
+                      userId: "user123"
+                      content: "First post"
+                      createdAt: "2024-11-21T10:00:00Z"
+                    - id: "2"
+                      userId: "user456"
+                      content: "Second post"
+                      createdAt: "2024-11-21T10:05:00Z"
+    post:
+      summary: Create a new post 
+      description: Creates a new news feed post. 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPost' 
+            examples:
+              example1:
+                summary: Example request
+                value:
+                  userId: "user123"
+                  content: "First post"
+      responses:
+        '201':
+          description: Post created 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    id: "1"
+                    userId: "user123"
+                    content: "First post"
+                    createdAt: "2024-11-21T10:00:00Z"
+  /posts/{postId}:
+    get:
+      summary: Get a specific post 
+      description: Retrieves a specific post by ID. 
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '200':
+          description: Successful response 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    id: "1"
+                    userId: "user123"
+                    content: "First post"
+                    createdAt: "2024-11-21T10:00:00Z"
+    put:
+      summary: Update a specific post 
+      description: Updates an existing post. 
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPost' 
+            examples:
+              example1:
+                summary: Example request
+                value:
+                  userId: "user123"
+                  content: "Updated post content"
+      responses:
+        '200':
+          description: Post updated 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post' 
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    id: "1"
+                    userId: "user123"
+                    content: "Updated post content"
+                    createdAt: "2024-11-21T10:00:00Z"
+    delete:
+      summary: Delete a specific post 
+      description: Deletes a specific post by ID. 
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '204':
+          description: Post deleted 
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        id:
+          type: string 
+          example: "1"
+        userId:
+          type: string 
+          example: "user123"
+        content:
+          type: string 
+          example: "Hello, world!"
+        createdAt:
+          type: string
+          format: date-time 
+          example: "2024-11-21T10:00:00Z"
+    NewMessage:
+      type: object
+      properties:
+        userId:
+          type: string 
+          example: "user123"
+        content:
+          type: string 
+          example: "Hello, world!"
+    Post:
+      type: object
+      properties:
+        id:
+          type: string 
+          example: "1"
+        userId:
+          type: string 
+          example: "user123"
+        content:
+          type: string 
+          example: "First post"
+        createdAt:
+          type: string
+          format: date-time 
+          example: "2024-11-21T10:00:00Z"
+    NewPost:
+      type: object
+      properties:
+        userId:
+          type: string 
+          example: "user123"
+        content:
+          type: string 
+          example: "First post"
